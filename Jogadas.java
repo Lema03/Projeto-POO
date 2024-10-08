@@ -14,4 +14,11 @@ public class Jogadas extends Cards{
 	public String toString() {
 		return super.toString() + ", Efeito: " + efeito;
 	}
+	public void efeito(Jogadores JogadorAlvo) {
+		if ("Provocação".equals(getnomeCarta())) {
+			JogadorAlvo.mudarDefesa(-4);
+		}
+		//O restante dos efeitos vem aqui
+		
+	}
 }

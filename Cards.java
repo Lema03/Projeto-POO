@@ -15,4 +15,9 @@ public class Cards {
 	public String toString() {
 		return "Nome: " + nomeCarta + ", Custo de Mana: " + custoMana;
 	}
+
+	public String getnomeCarta() {
+		return nomeCarta;
+	}
+	
 }
