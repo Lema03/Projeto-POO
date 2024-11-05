@@ -1,6 +1,6 @@
+package poo;
 
-
-public class Cards {
+public abstract class Cards {
 
 	//Definindo os atributos da classe.
 	private String nomeCarta;
@@ -15,9 +15,8 @@ public class Cards {
 	public String toString() {
 		return "Nome: " + nomeCarta + ", Custo de Mana: " + custoMana;
 	}
-
-	public String getnomeCarta() {
-		return nomeCarta;
-	}
 	
+	public int getCustoMana() {
+		return custoMana;
+	}
 }

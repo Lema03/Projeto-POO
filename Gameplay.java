@@ -1,7 +1,10 @@
-
+package poo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import poo.Players.ManaInsuficienteException;
+
 import java.util.Random;
 
 public class Gameplay {
@@ -115,15 +118,31 @@ public class Gameplay {
 		player1.embaralharDeck();
 		player2.embaralharDeck();
 		System.out.println("Agora, vamos receber as cartas!");
+		System.out.println("\nCartas de " + nomePlayer1 + ": ");
 		player1.puxarMaoInicial(player1.getDeck(), player1.getCountDeck());
-		System.out.println("\nCartas do jogador 2: ");
+		System.out.println("\nCartas de " + nomePlayer2 + ": ");
 		player2.puxarMaoInicial(player2.getDeck(), player2.getCountDeck());
-		System.out.println("Ambos os jogadores começam com 30 pontos de vida e 1 ponto de mana.");
+		System.out.println("\nAmbos os jogadores começam com 30 pontos de vida e 1 ponto de mana.");
 		System.out.println("O jogo acaba quando um dos jogadores fica sem vida ou sem cartas disponíveis para compra.");
-		player1.jogarCarta(player1.getHand());
+		System.out.println("Como o " + vencedorSorteio + " ganhou no par ou ímpar, ele começa jogando!");
+		if (vencedorSorteio == nomePlayer1) {
+			try {
+				player1.jogarCarta(player1.getHand());
+			} catch (ManaInsuficienteException e) {
+				System.out.println("Erro : " + e.getMessage());
+			} finally {
+				System.out.println(" ");
+			}
+		} else {
+			System.out.println(nomePlayer2);
+			try {
+				player2.jogarCarta(player2.getHand());
+			} catch (ManaInsuficienteException e){
+				System.out.println("Erro: " + e.getMessage());
+			} finally {
+				System.out.println(" ");
+			}
+		}
 		
 	}
-	
-	
-
 }

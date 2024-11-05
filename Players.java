@@ -1,3 +1,5 @@
+package poo;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +25,13 @@ public class Players {
 		this.quantidadeMana = quantidadeMana;
 		this.deck = null;
 		scanner = new Scanner(System.in);
+	}
+	
+	public class ManaInsuficienteException extends Exception{
+
+		public ManaInsuficienteException(String mensagem) {
+			super (mensagem);
+		}
 	}
 	
 	public void setVidaPlayer(int vidaPlayer) {
@@ -85,13 +94,38 @@ public class Players {
 		this.hand = hand;
 	}
 	
-	public void jogarCarta(ArrayList<Cards> hand) {
-		System.out.println("Selecione a carta que deseja jogar: ");
+	public void jogarCarta(ArrayList<Cards> hand) throws ManaInsuficienteException {
+		System.out.println("Selecione a carta que deseja jogar, de 0 a 4: ");
 		int posicaoCarta = scanner.nextInt();
 		Cards cartaTabuleiro = hand.get(posicaoCarta);
-		tabuleiro.add(cartaTabuleiro);
-		hand.remove(posicaoCarta);
-		System.out.println("Mão: " + hand);
+		System.out.println("A carta selecionada foi: ");
+		System.out.println(hand.get(posicaoCarta));
+		System.out.println("Deseja jogá-la?");
+		System.out.println("Digite [s] ou [S] para sim e [n] ou [N] para não.");
+		String confirmacao = scanner.nextLine();
+		if (confirmacao.equalsIgnoreCase("n")) {
+			do {
+			System.out.println("Selecione a carta que deseja jogar, de 0 a 4:");
+			posicaoCarta = scanner.nextInt();
+			cartaTabuleiro = hand.get(posicaoCarta);
+			System.out.println("A carta selecionada foi: ");
+			System.out.println(hand.get(posicaoCarta));
+			System.out.println("Digite [s] ou [S] para sim e [n] ou [N] para não.");
+			confirmacao = scanner.nextLine();
+			} while (confirmacao.equalsIgnoreCase("n"));
+		} else {
+			if (cartaTabuleiro.getCustoMana() > quantidadeMana) {
+				throw new ManaInsuficienteException("Mana do jogador é insuficiente!");
+			} else {
+				tabuleiro.add(cartaTabuleiro);
+				hand.remove(posicaoCarta);
+				System.out.println("Mão: ");
+				System.out.println(hand.size());
+				for (int i = 0; i <= hand.size() - 1 ; i++) {
+					System.out.println(hand.get(i));
+				}
+			}
+		}
 		System.out.println("Tabuleiro: " + tabuleiro);
 	}
 	
@@ -103,29 +137,12 @@ public class Players {
 		this.tabuleiro = tabuleiro;
 	}
 	
-	public void atacar() {}
+	public void atacar(ArrayList<Cards> tabuleiro) {
+		System.out.println("Selecione a carta do tabuleiro que irá atacar: ");
+		int posicaoCarta = scanner.nextInt();
+		Cards cartaAtaque = tabuleiro.get(posicaoCarta);
+		
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
