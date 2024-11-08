@@ -33,12 +33,26 @@ public class GerenciadorTurno {
     }
 
     public void iniciarTurno(){
-
+        jogador1.puxarHandInicial();
+        jogador2.puxarHandInicial();
         if (IDJogadorAtivo == 1){
 
         }
     }
     public void encerrarTurno(){}
 
+    public boolean verificadorTurno(){
+        if (jogador1.getVivo() == true && jogador2.getVivo() == true && jogador1.semCartas() == false && jogador2.semCartas() == false){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    public void turno(){
+        while (verificadorTurno()){
+            iniciarTurno();
+            //restante dos comandos
+        }
+    }
 }

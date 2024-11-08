@@ -9,6 +9,7 @@ public class Jogador {
     private int identificador;
     private int vida;
     private int mana;
+    private boolean vivo;
     private Hand hand;
     private Deck deck;
     private Cemiterio cemiterio;
@@ -18,6 +19,7 @@ public class Jogador {
         this.identificador = identificador;
         this.vida = 50;
         this.mana = 1;
+        this.vivo = true;
         this.hand = new Hand();
         this.cemiterio = new Cemiterio();
     }
@@ -50,11 +52,27 @@ public class Jogador {
             cartaOponente.diminuirDefesa(cartaAtacante.getAtaque());
         }
     }
-    //Condições de vitória:
-    public boolean isVivo(){
-        return vida > 0;
+    public void puxarHandInicial(){
+        deck.embaralharCartas();
+        for (int i = 0; i < 5; i++){
+            hand.comprarCarta(deck);
+        }
     }
-    public boolean semCartas (Deck deck){
+
+    public void posicionarCarta(){
+        boolean continuar = true;
+        while (continuar){
+
+        }
+    }
+
+    //Condições de vitória:
+    public void isVivo(){
+        if (vida < 0){
+            this.vivo = false;
+        }
+    }
+    public boolean semCartas (){
         return deck.estaVazio();
     }
 
@@ -99,4 +117,7 @@ public class Jogador {
         return cemiterio;
     }
 
+    public boolean getVivo(){
+        return vivo;
+    }
 }
