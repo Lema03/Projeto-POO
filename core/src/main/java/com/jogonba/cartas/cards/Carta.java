@@ -1,6 +1,7 @@
 package com.jogonba.cartas.cards;
+import com.jogonba.cartas.players.Nome;
 
-public abstract class Carta {
+public abstract class Carta implements Nome {
     private String nome;
     private int custoMana;
 
@@ -10,9 +11,11 @@ public abstract class Carta {
     }
 
     //Getters e setters:
-    public void setNome(){
+    @Override
+    public void setNome(String nome){
         this.nome = nome;
     }
+    @Override
     public String getNome(){
         return nome;
     }

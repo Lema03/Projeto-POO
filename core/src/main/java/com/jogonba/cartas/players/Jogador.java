@@ -4,7 +4,7 @@ import com.jogonba.cartas.board.Tabuleiro;
 import com.jogonba.cartas.cards.Carta;
 import com.jogonba.cartas.cards.CartaCriatura;
 
-public class Jogador {
+public class Jogador implements Nome{
     private String nome;
     private int identificador;
     private int vida;
@@ -34,14 +34,23 @@ public class Jogador {
     public void aumentarMana(int valor){
         this.mana += valor;
     }
+
     public void jogarCarta(int posicaoHand){
         Carta cartaRemovida = hand.removerCarta(posicaoHand);
+        int quantMana = cartaRemovida.getCustoMana();
+        if (quantMana > this.mana){
+            //Informar que a mana é insuficiente e pedir para escolher outra carta se possível
+        } else {
+            diminuirMana(quantMana);
+        }
         tabuleiro.colocarCarta(cartaRemovida);
     }
+
     public void removerCarta(int posicaoTabuleiro){
         Carta cartaRemovida = tabuleiro.removerCarta(posicaoTabuleiro);
         cemiterio.adicionarCarta(cartaRemovida);
     }
+
     public void atacar (CartaCriatura cartaAtacante, CartaCriatura cartaOponente, Jogador jogadorOponente){
         if (cartaAtacante.getAtaque() >= cartaOponente.getDefesa()){
             int dano = cartaAtacante.getAtaque() - cartaOponente.getDefesa();
@@ -52,6 +61,7 @@ public class Jogador {
             cartaOponente.diminuirDefesa(cartaAtacante.getAtaque());
         }
     }
+
     public void puxarHandInicial(){
         deck.embaralharCartas();
         for (int i = 0; i < 5; i++){
@@ -66,6 +76,21 @@ public class Jogador {
         }
     }
 
+
+    //Fases do jogador:
+    public void faseCompra(){
+        hand.comprarCarta(deck);
+    }
+
+    public void faseMana (int turno){
+        if(this.mana <= 10){
+            this.mana = turno;
+        } else {
+            this.mana = 10;
+        }
+    }
+
+
     //Condições de vitória:
     public void isVivo(){
         if (vida < 0){
@@ -75,6 +100,7 @@ public class Jogador {
     public boolean semCartas (){
         return deck.estaVazio();
     }
+
 
     //Getters e setters:
     public void setVida(int vida) {
@@ -91,9 +117,11 @@ public class Jogador {
         return mana;
     }
 
+    @Override
     public void setNome(String nome){
         this.nome = nome;
     }
+    @Override
     public String getNome(){
         return nome;
     }

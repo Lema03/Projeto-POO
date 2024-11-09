@@ -7,6 +7,7 @@ public class GerenciadorTurno {
     private Jogador jogador2;
     private int IDJogadorAtivo;
     private Random random;
+    private int turno;
 
     public GerenciadorTurno(Jogador jogador1, Jogador jogador2, Random random){
         this.jogador1 = new Jogador(1);
@@ -32,13 +33,35 @@ public class GerenciadorTurno {
         }
     }
 
-    public void iniciarTurno(){
+    public void rodadaInicial(){
         jogador1.puxarHandInicial();
         jogador2.puxarHandInicial();
         if (IDJogadorAtivo == 1){
-
+            jogador1.faseCompra();
+            //fase de posicionar cartas
+            //fim do turno
+            //Por ser o turno inicial, não há compra de mana e nem fase de combate.
+            alternarJogador();
+        } else {
+            jogador2.faseCompra();
+            //Fase de posicionar cartas
+            alternarJogador();
         }
     }
+
+    public void iniciarTurno(){
+        if (IDJogadorAtivo == 1){
+            jogador1.faseCompra();
+            jogador1.faseMana(turno);
+            //Fase de posicionar cartas
+            //Fase de combate, onde pode haver o ataque caso o jogador deseje.
+            //Fim do turno;
+        } else {
+            jogador2.faseCompra();
+            jogador2.faseMana(turno);
+        }
+    }
+
     public void encerrarTurno(){}
 
     public boolean verificadorTurno(){
@@ -50,6 +73,7 @@ public class GerenciadorTurno {
     }
 
     public void turno(){
+        rodadaInicial();
         while (verificadorTurno()){
             iniciarTurno();
             //restante dos comandos
