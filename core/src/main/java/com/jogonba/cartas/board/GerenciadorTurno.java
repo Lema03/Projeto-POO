@@ -49,20 +49,20 @@ public class GerenciadorTurno {
         }
     }
 
-    public void iniciarTurno(){
+    public void turno(){
         if (IDJogadorAtivo == 1){
             jogador1.faseCompra();
             jogador1.faseMana(turno);
             //Fase de posicionar cartas
             //Fase de combate, onde pode haver o ataque caso o jogador deseje.
             //Fim do turno;
+            alternarJogador();
         } else {
             jogador2.faseCompra();
             jogador2.faseMana(turno);
+            alternarJogador();
         }
     }
-
-    public void encerrarTurno(){}
 
     public boolean verificadorTurno(){
         if (jogador1.getVivo() == true && jogador2.getVivo() == true && jogador1.semCartas() == false && jogador2.semCartas() == false){
@@ -72,10 +72,11 @@ public class GerenciadorTurno {
         }
     }
 
-    public void turno(){
+    public void gameplay(){
+        sorteio();
         rodadaInicial();
         while (verificadorTurno()){
-            iniciarTurno();
+            turno();
             //restante dos comandos
         }
     }

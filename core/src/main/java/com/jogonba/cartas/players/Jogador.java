@@ -1,5 +1,7 @@
 package com.jogonba.cartas.players;
 import java.util.ArrayList;
+
+import com.jogonba.cartas.board.ManaInsuficienteException;
 import com.jogonba.cartas.board.Tabuleiro;
 import com.jogonba.cartas.cards.Carta;
 import com.jogonba.cartas.cards.CartaCriatura;
@@ -35,20 +37,27 @@ public class Jogador implements Nome{
         this.mana += valor;
     }
 
-    public void jogarCarta(int posicaoHand){
+    public void jogarCarta (int posicaoHand){
+
         Carta cartaRemovida = hand.removerCarta(posicaoHand);
         int quantMana = cartaRemovida.getCustoMana();
-        if (quantMana > this.mana){
-            //Informar que a mana é insuficiente e pedir para escolher outra carta se possível
-        } else {
-            diminuirMana(quantMana);
+
+        try {
+            if (quantMana > this.mana) {
+                throw new ManaInsuficienteException ("Mana insuficiente. Escolha outra carta");
+            } else {
+                diminuirMana(quantMana);
+                tabuleiro.colocarCarta (cartaRemovida);
+            }
+        } catch (ManaInsuficienteException e) {
+            System.out.println (e.getMessage());
+            hand.devolverCarta (posicaoHand, cartaRemovida);
         }
-        tabuleiro.colocarCarta(cartaRemovida);
     }
 
-    public void removerCarta(int posicaoTabuleiro){
-        Carta cartaRemovida = tabuleiro.removerCarta(posicaoTabuleiro);
-        cemiterio.adicionarCarta(cartaRemovida);
+    public void removerCarta (int posicaoTabuleiro){
+        Carta cartaRemovida = tabuleiro.removerCarta (posicaoTabuleiro);
+        cemiterio.adicionarCarta (cartaRemovida);
     }
 
     public void atacar (CartaCriatura cartaAtacante, CartaCriatura cartaOponente, Jogador jogadorOponente){
@@ -69,9 +78,9 @@ public class Jogador implements Nome{
         }
     }
 
-    public void posicionarCarta(){
+    public void posicionarCarta() {
         boolean continuar = true;
-        while (continuar){
+        while (continuar) {
 
         }
     }
@@ -83,11 +92,19 @@ public class Jogador implements Nome{
     }
 
     public void faseMana (int turno){
-        if(this.mana <= 10){
+        if (this.mana <= 10){
             this.mana = turno;
         } else {
             this.mana = 10;
         }
+    }
+
+    public void fasePosicionamento(){
+
+    }
+
+    public void faseCombate (){
+
     }
 
 

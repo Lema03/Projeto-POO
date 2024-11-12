@@ -24,4 +24,5 @@ public class Tabuleiro {
     public int verificarPosicao(Carta carta){
         return slotsTabuleiro.indexOf(carta);
     }
+
 }

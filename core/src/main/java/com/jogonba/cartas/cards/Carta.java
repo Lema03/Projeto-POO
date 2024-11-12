@@ -26,4 +26,5 @@ public abstract class Carta implements Nome {
     public int getCustoMana(){
         return custoMana;
     }
+
 }

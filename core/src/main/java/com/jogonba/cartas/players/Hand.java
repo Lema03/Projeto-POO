@@ -19,5 +19,8 @@ public class Hand {
         return cartasHand.remove(posicao);
     }
 
+    public void devolverCarta(int posicao, Carta carta){
+        cartasHand.add(posicao, carta);
+    }
 
 }
