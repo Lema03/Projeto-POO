@@ -8,6 +8,10 @@ import com.jogonba.cartas.screens.MainMenuTela;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class JogoCarta extends Game {
+
+    public static final int LARGURA = 1412;
+    public static final int ALTURA = 754;
+
     public SpriteBatch batch;
 
 
