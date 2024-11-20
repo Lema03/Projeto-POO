@@ -26,8 +26,7 @@ public class TabuleiroRenderer {
 
     public void desenharCartas(){
         for (Carta carta : tabuleiro.getslotsTabuleiro()){
-            float x = carta.getPosicaoX();
-            float y = carta.getPosicaoY();
+
         }
     }
 }

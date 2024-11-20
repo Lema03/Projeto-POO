@@ -6,7 +6,7 @@ import com.jogonba.cartas.board.Tabuleiro;
 import com.jogonba.cartas.cards.Carta;
 import com.jogonba.cartas.cards.CartaCriatura;
 
-public class Jogador implements Nome{
+public class Jogador {
     private String nome;
     private int identificador;
     private int vida;
@@ -47,7 +47,7 @@ public class Jogador implements Nome{
                 throw new ManaInsuficienteException ("Mana insuficiente. Escolha outra carta");
             } else {
                 diminuirMana(quantMana);
-                tabuleiro.colocarCarta (cartaRemovida);
+                tabuleiro.colocarCarta(cartaRemovida);
             }
         } catch (ManaInsuficienteException e) {
             System.out.println (e.getMessage());
@@ -107,6 +107,13 @@ public class Jogador implements Nome{
 
     }
 
+    public void criarPosicoesCB(){
+        tabuleiro.criarPosicoesCB();
+    }
+
+    public void criarPosicoesMH(){
+        tabuleiro.criarPosicoesMH();
+    }
 
     //Condições de vitória:
     public void isVivo(){
@@ -134,11 +141,9 @@ public class Jogador implements Nome{
         return mana;
     }
 
-    @Override
     public void setNome(String nome){
         this.nome = nome;
     }
-    @Override
     public String getNome(){
         return nome;
     }

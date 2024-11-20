@@ -7,27 +7,16 @@ import com.jogonba.cartas.players.Hand;
 import java.util.ArrayList;
 
 public class Tabuleiro {
-    private ArrayList<Carta> slotsTabuleiroJogador1;
-    private ArrayList<Carta> slotsTabuleiroJogador2;
-    private ArrayList<Vector2> slotsPosicaoJogador1;
-    private ArrayList<Vector2> slotsPosicaoJogador2;
+    private ArrayList<Carta> slotsTabuleiro;
+    private ArrayList<Vector2> slotsPosicao;
 
     public Tabuleiro() {
-        this.slotsTabuleiroJogador1 = new ArrayList<>();
-        this.slotsTabuleiroJogador2 = new ArrayList<>();
-        this.slotsPosicaoJogador1 = new ArrayList<>();
-        this.slotsPosicaoJogador2 = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++){
-            slotsPosicaoJogador1.add(new Vector2(300, 100 * i + 120));
-        }
-        for (int i = 0; i < 5; i++) {
-            slotsPosicaoJogador2.add(new Vector2(100, 100 * i + 120));
-        }
+        this.slotsTabuleiro = new ArrayList<>();
+        this.slotsPosicao = new ArrayList<>();
     }
 
     //Métodos relevantes:
-    public void colocarCartaJogador1(Carta carta){
+    public void colocarCarta(Carta carta){
         slotsTabuleiro.add(carta);
     }
 
@@ -41,5 +30,17 @@ public class Tabuleiro {
 
     public ArrayList<Carta> getslotsTabuleiro(){
         return slotsTabuleiro;
+    }
+
+    public void criarPosicoesCB() {
+        for (int i = 0; i < 5; i++) {
+            slotsPosicao.add(new Vector2(300, 100 * i + 120));
+        }
+    }
+
+    public void criarPosicoesMH() {
+        for (int i = 0; i < 5; i++) {
+            slotsPosicao.add(new Vector2(100, 100 * i + 120));
+        }
     }
 }
