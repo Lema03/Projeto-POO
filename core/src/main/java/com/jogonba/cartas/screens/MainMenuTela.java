@@ -1,5 +1,6 @@
 package com.jogonba.cartas.screens;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -51,6 +52,10 @@ public class MainMenuTela implements Screen {
         int xPLAY = JogoCarta.LARGURA / 2 - PLAY_BUTTON_LARGURA / 2;
         if (Gdx.input.getX() < xPLAY + PLAY_BUTTON_LARGURA && Gdx.input.getX() > xPLAY && JogoCarta.ALTURA - Gdx.input.getY() < PLAY_BUTTON_Y + PLAY_BUTTON_ALTURA && JogoCarta.ALTURA - Gdx.input.getY() > PLAY_BUTTON_Y) {
             jogo.batch.draw(playButtonActive, xPLAY, PLAY_BUTTON_Y, PLAY_BUTTON_LARGURA, PLAY_BUTTON_ALTURA);
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                this.dispose();
+                jogo.setScreen(new JogoTela(jogo));
+            }
         } else {
             jogo.batch.draw(playButtonInactive, xPLAY, PLAY_BUTTON_Y, PLAY_BUTTON_LARGURA, PLAY_BUTTON_ALTURA);
         }
@@ -58,6 +63,9 @@ public class MainMenuTela implements Screen {
         int xEXIT = JogoCarta.LARGURA / 2 - EXIT_BUTTON_LARGURA / 2;
         if (Gdx.input.getX() < xEXIT + EXIT_BUTTON_LARGURA && Gdx.input.getX() > xEXIT && JogoCarta.ALTURA - Gdx.input.getY() < EXIT_BUTTON_Y + EXIT_BUTTON_ALTURA && JogoCarta.ALTURA - Gdx.input.getY() > EXIT_BUTTON_Y) {
             jogo.batch.draw(exitButtonActive, xEXIT, EXIT_BUTTON_Y, EXIT_BUTTON_LARGURA, EXIT_BUTTON_ALTURA);
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                Gdx.app.exit();
+            }
         } else {
             jogo.batch.draw(exitButtonInactive, xEXIT, EXIT_BUTTON_Y, EXIT_BUTTON_LARGURA, EXIT_BUTTON_ALTURA);
         }
