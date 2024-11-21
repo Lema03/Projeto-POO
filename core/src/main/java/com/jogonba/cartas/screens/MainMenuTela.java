@@ -18,12 +18,12 @@ public class MainMenuTela implements Screen {
     private static final int NBA_PLAYOFFS_LOGO_Y = 300;
 
     private JogoCarta jogo;
-    private Texture playButtonActive;
-    private Texture playButtonInactive;
-    private Texture exitButtonActive;
-    private Texture exitButtonInactive;
-    private Texture nbaPlayoffsLogo;
-    private Texture nbaWallpaper;
+    private final Texture playButtonActive;
+    private final Texture playButtonInactive;
+    private final Texture exitButtonActive;
+    private final Texture exitButtonInactive;
+    private final Texture nbaPlayoffsLogo;
+    private final Texture nbaWallpaper;
 
     public MainMenuTela(JogoCarta jogo){
         this.jogo = jogo;
