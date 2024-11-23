@@ -1,24 +1,38 @@
 package com.jogonba.cartas.players;
+
 import java.util.LinkedList;
 import java.util.Collections;
 import com.jogonba.cartas.cards.Carta;
 
 public class Deck {
-    private LinkedList<Carta> cartasDeck;
+    protected LinkedList<Carta> cartasDeck;
 
     public Deck(){
         this.cartasDeck = new LinkedList<>();
     }
 
     //Métodos relevantes:
-    public void embaralharCartas(){
+    public void add (Carta carta){
+        cartasDeck.add(carta);
+    };
+    public void shuffle(){
         Collections.shuffle(cartasDeck);
     }
+
     public Carta removerCarta(){
         return cartasDeck.poll();
     }
 
-    public boolean estaVazio (){
+    public boolean estaVazio(){
         return cartasDeck.isEmpty();
     }
+
+    public LinkedList<Carta> getCartasDeck(){
+        return this.cartasDeck;
+    }
+
+    public void setCartasDeck (LinkedList<Carta> cartasDeck){
+        this.cartasDeck = cartasDeck;
+    }
+
 }
