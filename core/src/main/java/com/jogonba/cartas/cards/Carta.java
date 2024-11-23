@@ -1,12 +1,7 @@
 package com.jogonba.cartas.cards;
+import com.jogonba.cartas.players.Nome;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-public abstract class Carta {
-    Texture textura;
-    float x, y;
-
+public abstract class Carta implements Nome {
     private String nome;
     private int custoMana;
 
@@ -15,14 +10,16 @@ public abstract class Carta {
         this.custoMana = custoMana;
     }
 
-    public void render(SpriteBatch batch){
-        batch.draw(textura, x, y);
+    public String toString(){
+        return "Carta: " + nome + ", Custo de Mana: " + custoMana;
     }
 
     //Getters e setters:
+    @Override
     public void setNome(String nome){
         this.nome = nome;
     }
+    @Override
     public String getNome(){
         return nome;
     }
