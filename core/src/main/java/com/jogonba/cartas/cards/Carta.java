@@ -10,9 +10,10 @@ public abstract class Carta {
     private String nome;
     private int custoMana;
 
-    public Carta(String nome, int custoMana){
+    public Carta(String nome, int custoMana, Texture textura){
         this.nome = nome;
         this.custoMana = custoMana;
+        this.textura = textura;
     }
 
     public void render(SpriteBatch batch){

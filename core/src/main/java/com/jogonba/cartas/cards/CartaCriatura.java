@@ -9,10 +9,9 @@ public class CartaCriatura extends Carta {
     private int defesa;
 
     public CartaCriatura(String nomeCarta, int custoMana, int ataque, int defesa, Texture textura){
-        super(nomeCarta, custoMana);
+        super(nomeCarta, custoMana, textura);
         this.ataque = ataque;
         this.defesa = defesa;
-        this.textura = textura;
     }
 
     //Métodos relevantes:

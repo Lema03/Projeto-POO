@@ -125,6 +125,10 @@ public class Jogador {
         return deck.estaVazio();
     }
 
+    public String printarVida(){
+        return String.valueOf(vida);
+    }
+
 
     //Getters e setters:
     public void setVida(int vida) {
