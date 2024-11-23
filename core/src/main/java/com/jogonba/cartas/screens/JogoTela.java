@@ -1,4 +1,5 @@
 package com.jogonba.cartas.screens;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,9 +24,8 @@ public class JogoTela implements Screen {
         jogador2 = new Jogador(2);
 
         tabuleiro = new Texture("tabuleirotexture.png");
-        font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        font.getData().setScale(2);
+        font = new BitmapFont(Gdx.files.internal("fontejogo.fnt"));
+
     }
 
     @Override
@@ -38,7 +38,7 @@ public class JogoTela implements Screen {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         jogo.batch.begin();
         jogo.batch.draw(tabuleiro, JogoCarta.LARGURA / 2 - tabuleiro.getWidth() / 2, 0);
-        font.draw(jogo.batch, jogador1.printarVida(), 0, JogoCarta.ALTURA);
+        font.draw(jogo.batch, "TESTE DE TEXTO", 0, JogoCarta.ALTURA);
         jogo.batch.end();
     }
 
