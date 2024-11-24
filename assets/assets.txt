@@ -1,8 +1,12 @@
 Jordan-Buckethead.mp3
+cb_active.png
+cb_inactive.png
 exit_button_active.png
 exit_button_inactive.png
 fontejogo.fnt
 fontejogo.png
+mh_active.png
+mh_inactive.png
 nba_logo.png
 nba_playoffs.png
 nba_wallpaper.jpg

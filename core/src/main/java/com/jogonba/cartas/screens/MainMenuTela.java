@@ -54,7 +54,7 @@ public class MainMenuTela implements Screen {
             jogo.batch.draw(playButtonActive, xPLAY, PLAY_BUTTON_Y, PLAY_BUTTON_LARGURA, PLAY_BUTTON_ALTURA);
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
                 this.dispose();
-                jogo.setScreen(new JogoTela(jogo));
+                jogo.setScreen(new SelectionTela(jogo));
             }
         } else {
             jogo.batch.draw(playButtonInactive, xPLAY, PLAY_BUTTON_Y, PLAY_BUTTON_LARGURA, PLAY_BUTTON_ALTURA);

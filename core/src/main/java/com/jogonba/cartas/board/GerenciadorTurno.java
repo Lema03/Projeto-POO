@@ -18,11 +18,11 @@ public class GerenciadorTurno {
     private Deck deckCB;
     private Deck deckMH;
 
-    public GerenciadorTurno(Random random, DeckLibrary dl){
+    public GerenciadorTurno(){
         this.jogador1 = new Jogador(1);
         this.jogador2 = new Jogador(2);
+        this.dl = new DeckLibrary();
         this.random = new Random();
-        this.dl = dl;
         this.deckCB = new Deck();
         this.deckMH = new Deck();
     }
@@ -53,23 +53,18 @@ public class GerenciadorTurno {
         }
     }
 
-    public void escolhaDeck(){
-        System.out.println("Agora, vamos às escolhas dos decks: ");
+    public void escolhaDeckCB() {
+        deckCB.setCartasDeck(dl.getDeck1().getCartasDeck());
+        jogador1.setDeck(deckCB);
+        deckMH.setCartasDeck(dl.getDeck2().getCartasDeck());
+        jogador2.setDeck(deckMH);
+    }
 
-        System.out.println("Escolha o deck para " + jogador1.getNome() + ": (1 - CB ou 2 - MH)");
-        int escolha1 = scanner.nextInt();
-
-        if (escolha1 == 1) {
-            deckCB.setCartasDeck(dl.getDeck1().getCartasDeck());
-            jogador1.setDeck(deckCB);
-            deckMH.setCartasDeck(dl.getDeck2().getCartasDeck());
-            jogador2.setDeck(deckMH);
-        } else {
-            deckMH.setCartasDeck(dl.getDeck2().getCartasDeck());
-            jogador1.setDeck(deckMH);
-            deckCB.setCartasDeck(dl.getDeck1().getCartasDeck());
-            jogador2.setDeck(deckCB);
-        }
+    public void escolhaDeckMH() {
+        deckMH.setCartasDeck(dl.getDeck2().getCartasDeck());
+        jogador1.setDeck(deckMH);
+        deckCB.setCartasDeck(dl.getDeck1().getCartasDeck());
+        jogador2.setDeck(deckCB);
     }
 
     public void alternarJogador(){
@@ -93,9 +88,9 @@ public class GerenciadorTurno {
         turno();
     }
 
-    public void atacar(){
+    /*public void atacar(){
         jogador1.cartaAtaque
-    }
+    }*/
 
     public void turno(){
         if (IDJogadorAtivo == 1){

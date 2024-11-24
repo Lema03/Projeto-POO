@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.jogonba.cartas.screens.JogoTela;
 import com.jogonba.cartas.screens.MainMenuTela;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class JogoCarta extends Game {
 
     private Music music;
