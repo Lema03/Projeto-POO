@@ -32,4 +32,8 @@ public class CartaEncantamento extends Carta {
         }
 
     }
+
+    public String toString(){
+        return super.toString() + ", Efeito: " + efeito;
+    }
 }

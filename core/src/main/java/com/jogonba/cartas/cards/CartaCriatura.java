@@ -28,6 +28,10 @@ public class CartaCriatura extends Carta {
         this.defesa -= valor;
     }
 
+    public String toString(){
+        return super.toString() + ", Ataque: " + ataque + ", Defesa: " + defesa + ", Efeito: " + efeito;
+    }
+
     //Getters e setters:
     public int getAtaque() {
         return ataque;

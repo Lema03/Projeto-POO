@@ -13,4 +13,8 @@ public class CartaFeitico extends Carta {
         this.tipoEfeito = tipoEfeito;
         this.valor = valor;
     }
+
+    public String toString (){
+        return super.toString() + ", Efeito: " + efeito;
+    }
 }

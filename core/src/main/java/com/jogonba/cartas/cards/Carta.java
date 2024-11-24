@@ -28,6 +28,10 @@ public abstract class Carta {
         return nome;
     }
 
+    public String toString(){
+        return "Carta: " + nome + ", Custo de Mana: " + custoMana;
+    }
+
     public void setCustoMana(){
         this.custoMana = custoMana;
     }

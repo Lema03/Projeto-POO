@@ -1,5 +1,6 @@
 package com.jogonba.cartas.board;
 import com.jogonba.cartas.cards.Carta;
+import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 public class Tabuleiro {
@@ -50,5 +51,21 @@ public class Tabuleiro {
     public int getTabuleiroSize(){
         slotsTabuleiro.trimToSize();
         return slotsTabuleiro.size();
+    }
+
+    public ArrayList<com.jogonba.cartas.cards.Carta> getslotsTabuleiro(){
+        return slotsTabuleiro;
+    }
+
+    public void criarPosicoesCB() {
+        for (int i = 0; i < 5; i++) {
+            slotsPosicao.add(new Vector2(300, 100 * i + 120));
+        }
+    }
+
+    public void criarPosicoesMH() {
+        for (int i = 0; i < 5; i++) {
+            slotsPosicao.add(new Vector2(100, 100 * i + 120));
+        }
     }
 }

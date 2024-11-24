@@ -1,4 +1,5 @@
 package com.jogonba.cartas.players;
+
 import java.util.ArrayList;
 import com.jogonba.cartas.cards.Carta;
 
@@ -23,4 +24,19 @@ public class Hand {
         cartasHand.add(posicao, carta);
     }
 
+    public void mostrarHand() {
+        for (int n = 0; n < cartasHand.size(); n++) {
+            Carta carta = cartasHand.get(n);
+            System.out.println(carta);
+        }
+    }
+
+    public Carta escolherCarta(int n) {
+        Carta carta = cartasHand.get(n);
+        return carta;
+    }
+
+    public ArrayList<Carta> getCartasHand(){
+        return cartasHand;
+    }
 }
