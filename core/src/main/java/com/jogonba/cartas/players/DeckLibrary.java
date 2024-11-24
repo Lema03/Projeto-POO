@@ -87,8 +87,11 @@ public class DeckLibrary {
         return deck2;
     }
 
-    public void embaralharCartas(){
+    public void embaralharCartas1(){
         deck1.shuffle();
+    }
+
+    public void embaralharCartas2(){
         deck2.shuffle();
     }
 
