@@ -5,7 +5,7 @@ import com.jogonba.cartas.board.Tabuleiro;
 import com.jogonba.cartas.cards.Carta;
 import com.jogonba.cartas.cards.CartaCriatura;
 
-public class Jogador implements Nome{
+public class Jogador{
     private String nome;
     private int identificador;
     private int vida;
@@ -147,17 +147,8 @@ public class Jogador implements Nome{
             }
             System.out.println("Agora, escolha qual carta do oponente você deseja atacar: ");
 
-            atacar(cartaAtaque);
+            //atacar(cartaAtaque);
         }
-    }
-
-    //Parte gráfica
-    public void criarPosicoesCB(){
-        tabuleiro.criarPosicoesCB();
-    }
-
-    public void criarPosicoesMH(){
-        tabuleiro.criarPosicoesMH();
     }
 
 
@@ -191,11 +182,11 @@ public class Jogador implements Nome{
         return mana;
     }
 
-    @Override
+
     public void setNome(String nome){
         this.nome = nome;
     }
-    @Override
+
     public String getNome(){
         return nome;
     }

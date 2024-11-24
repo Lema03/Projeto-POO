@@ -57,15 +57,6 @@ public class Tabuleiro {
         return slotsTabuleiro;
     }
 
-    public void criarPosicoesCB() {
-        for (int i = 0; i < 5; i++) {
-            slotsPosicao.add(new Vector2(300, 100 * i + 120));
-        }
-    }
 
-    public void criarPosicoesMH() {
-        for (int i = 0; i < 5; i++) {
-            slotsPosicao.add(new Vector2(100, 100 * i + 120));
-        }
-    }
+
 }

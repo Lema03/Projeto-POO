@@ -9,11 +9,13 @@ public abstract class Carta {
 
     private String nome;
     private int custoMana;
+    private String tipoEfeito;
 
-    public Carta(String nome, int custoMana, Texture textura){
+    public Carta(String nome, int custoMana, String tipoEfeito, Texture textura){
         this.nome = nome;
         this.custoMana = custoMana;
         this.textura = textura;
+        this.tipoEfeito = tipoEfeito;
     }
 
     public void render(SpriteBatch batch){
@@ -32,11 +34,18 @@ public abstract class Carta {
         return "Carta: " + nome + ", Custo de Mana: " + custoMana;
     }
 
-    public void setCustoMana(){
+    public void setCustoMana(int custoMana){
         this.custoMana = custoMana;
     }
     public int getCustoMana(){
         return custoMana;
+    }
+
+    public void setTipoEfeito(String tipoEfeito){
+        this.tipoEfeito = tipoEfeito;
+    }
+    public String getTipoEfeito(){
+        return tipoEfeito;
     }
 
 }

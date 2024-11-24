@@ -22,10 +22,10 @@ public class JogoCarta extends Game {
     public void create() {
         batch = new SpriteBatch();
         this.setScreen(new MainMenuTela(this));
-        //music = Gdx.audio.newMusic(Gdx.files.internal("Jordan.mp3"));
-        //music.setLooping(true);
-        //music.setVolume(0.5f);
-        //music.play();
+        music = Gdx.audio.newMusic(Gdx.files.internal("Jordan-Buckethead.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.5f);
+        music.play();
     }
 
     @Override

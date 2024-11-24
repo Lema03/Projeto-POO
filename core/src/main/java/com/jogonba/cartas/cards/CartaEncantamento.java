@@ -3,19 +3,15 @@ package com.jogonba.cartas.cards;
 import com.badlogic.gdx.graphics.Texture;
 
 public class CartaEncantamento extends Carta {
-    private Efeitos efeito;
-    private String tipoEfeito;
     private int valor;
 
-    public CartaEncantamento(String nome, int custoMana, Efeitos efeito, String tipoEfeito, int valor, Texture textura) {
-        super(nome, custoMana, textura);
-        this.efeito = efeito;
-        this.tipoEfeito = tipoEfeito;
+    public CartaEncantamento(String nome, int custoMana, String tipoEfeito, int valor, Texture textura) {
+        super(nome, custoMana, tipoEfeito, textura);
         this.valor = valor;
     }
 
     public void ativarEfeito(CartaCriatura cartaCriatura){
-        switch (tipoEfeito){
+        switch (getTipoEfeito()){
             case "aumentarAtaque":
                 cartaCriatura.aumentarAtaque(valor);
                 break;
@@ -33,7 +29,7 @@ public class CartaEncantamento extends Carta {
 
     }
 
-    public String toString(){
-        return super.toString() + ", Efeito: " + efeito;
-    }
+    //public String toString(){
+    //    return super.toString() + ", Efeito: " + efeito;
+    //}
 }

@@ -8,8 +8,8 @@ public class CartaCriatura extends Carta {
     private int ataque;
     private int defesa;
 
-    public CartaCriatura(String nomeCarta, int custoMana, int ataque, int defesa, Texture textura){
-        super(nomeCarta, custoMana, textura);
+    public CartaCriatura(String nomeCarta, int custoMana, int ataque, int defesa, String tipoEfeito, Texture textura){
+        super(nomeCarta, custoMana, tipoEfeito, textura);
         this.ataque = ataque;
         this.defesa = defesa;
     }
@@ -29,7 +29,7 @@ public class CartaCriatura extends Carta {
     }
 
     public String toString(){
-        return super.toString() + ", Ataque: " + ataque + ", Defesa: " + defesa + ", Efeito: " + efeito;
+        return super.toString() + ", Ataque: " + ataque + ", Defesa: " + defesa;
     }
 
     //Getters e setters:
