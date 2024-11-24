@@ -2,7 +2,9 @@ package com.jogonba.cartas.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.jogonba.cartas.JogoCarta;
 import com.jogonba.cartas.board.GerenciadorTurno;
@@ -26,6 +28,9 @@ public class SelectionTela implements Screen {
     private final Texture cbActive;
     private final Texture mhInactive;
     private final Texture mhActive;
+    private Texture texturaAtualCB;
+    private Texture texturaAtualMH;
+    private BitmapFont font;
 
     public SelectionTela(JogoCarta jogo){
         this.jogo = jogo;
@@ -35,6 +40,11 @@ public class SelectionTela implements Screen {
         cbActive = new Texture("cb_active.png");
         mhInactive = new Texture("mh_inactive.png");
         mhActive = new Texture("mh_active.png");
+        texturaAtualCB = cbInactive;
+        texturaAtualMH = mhInactive;
+        font = new BitmapFont(Gdx.files.internal("fontejogo.fnt"));
+        font.getData().setScale(2f);
+        font.setColor(Color.BLACK);
     }
     @Override
     public void show() {
@@ -44,30 +54,36 @@ public class SelectionTela implements Screen {
     @Override
     public void render(float v) {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        jogo.batch.begin();
-
-        jogo.batch.draw(nbaWallpaper, 0, 0, JogoCarta.LARGURA, JogoCarta.ALTURA);
 
         if (Gdx.input.getX() > CB_BUTTON_X && Gdx.input.getX() < CB_BUTTON_X + CB_BUTTON_LARGURA && JogoCarta.ALTURA - Gdx.input.getY() < CBMH_Y + CB_BUTTON_ALTURA && JogoCarta.ALTURA - Gdx.input.getY() > CBMH_Y){
-            jogo.batch.draw(cbActive, CB_BUTTON_X, CBMH_Y, CB_BUTTON_LARGURA, CB_BUTTON_ALTURA);
+            texturaAtualCB = cbActive;
             if (Gdx.input.isTouched()){
                 this.dispose();
                 gt.escolhaDeckCB();
                 jogo.setScreen(new JogoTela(jogo));
             }
         } else {
-            jogo.batch.draw(cbInactive, CB_BUTTON_X, CBMH_Y, CB_BUTTON_LARGURA, CB_BUTTON_ALTURA);
+            texturaAtualCB = cbInactive;
         }
         if (Gdx.input.getX() > MH_BUTTON_X && Gdx.input.getX() < MH_BUTTON_X + CB_BUTTON_LARGURA && JogoCarta.ALTURA - Gdx.input.getY() < CBMH_Y + CB_BUTTON_ALTURA && JogoCarta.ALTURA - Gdx.input.getY() > CBMH_Y){
-            jogo.batch.draw(mhActive, MH_BUTTON_X, CBMH_Y, CB_BUTTON_LARGURA, CB_BUTTON_ALTURA);
+            texturaAtualMH = mhActive;
             if (Gdx.input.isTouched()){
                 this.dispose();
                 gt.escolhaDeckMH();
                 jogo.setScreen(new JogoTela(jogo));
             }
         } else {
-            jogo.batch.draw(mhInactive, MH_BUTTON_X, CBMH_Y, CB_BUTTON_LARGURA, CB_BUTTON_ALTURA);
+            texturaAtualMH = mhInactive;
         }
+
+        jogo.batch.begin();
+
+        jogo.batch.draw(nbaWallpaper, 0, 0, JogoCarta.LARGURA, JogoCarta.ALTURA);
+
+        font.draw(jogo.batch, "SELECIONE SEU TIME", 200, 700);
+
+        jogo.batch.draw(texturaAtualCB, CB_BUTTON_X, CBMH_Y, CB_BUTTON_LARGURA, CB_BUTTON_ALTURA);
+        jogo.batch.draw(texturaAtualMH, MH_BUTTON_X, CBMH_Y, CB_BUTTON_LARGURA, CB_BUTTON_ALTURA);
 
         jogo.batch.end();
     }
