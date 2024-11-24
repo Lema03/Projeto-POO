@@ -67,4 +67,6 @@ public class JogoTela implements Screen {
         jogo.batch.dispose();
         tabuleiro.dispose();
     }
+
+
 }

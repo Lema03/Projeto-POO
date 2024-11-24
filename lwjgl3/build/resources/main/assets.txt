@@ -1,8 +1,12 @@
+Jordan-Buckethead.mp3
 exit_button_active.png
 exit_button_inactive.png
+fontejogo.fnt
+fontejogo.png
 nba_logo.png
 nba_playoffs.png
 nba_wallpaper.jpg
+placeholder.jpg
 play_button_active.png
 play_button_inactive.png
 tabuleirotexture.png

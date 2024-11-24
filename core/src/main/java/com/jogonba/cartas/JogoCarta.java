@@ -10,6 +10,7 @@ import com.jogonba.cartas.screens.MainMenuTela;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class JogoCarta extends Game {
+
     private Music music;
 
     public static final int LARGURA = 1412;
