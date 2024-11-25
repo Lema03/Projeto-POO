@@ -13,4 +13,14 @@ public class Cemiterio {
     public void adicionarCarta(Carta carta){
         cartasCemiterio.add(carta);
     }
+
+    public void mostrarCemiterio(){
+        if (!cartasCemiterio.isEmpty()){
+            for (int i = 0; i < cartasCemiterio.size(); i++) {
+                System.out.println(cartasCemiterio.get(i));
+            }
+        } else {
+            System.out.println("O cemitério está vazio!");
+        }
+    }
 }

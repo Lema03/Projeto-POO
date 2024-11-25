@@ -35,4 +35,9 @@ public class Deck {
         this.cartasDeck = cartasDeck;
     }
 
+    public void contDeck(){
+        System.out.println("Quantidade de cartas no deck: " + cartasDeck.size());
+    }
+
+
 }

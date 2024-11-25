@@ -27,13 +27,12 @@ public class Hand {
     public void mostrarHand() {
         for (int n = 0; n < cartasHand.size(); n++) {
             Carta carta = cartasHand.get(n);
-            System.out.println(carta);
+            System.out.println("["+n+"]" + carta);
         }
     }
 
     public Carta escolherCarta(int n) {
-        Carta carta = cartasHand.get(n);
-        return carta;
+        return cartasHand.get(n);
     }
 
     public ArrayList<Carta> getCartasHand(){
