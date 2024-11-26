@@ -77,6 +77,10 @@ public class GerenciadorTurno {
     }
 
     public void rodadaInicial(){
+        jogador1.setJogador(jogador1);
+        jogador2.setJogador(jogador2);
+        jogador1.setOponente(jogador2);
+        jogador2.setOponente(jogador1);
         if (IDJogadorAtivo == 1){
             jogador1.faseCompra();
             jogador1.faseMana(turno);
@@ -108,32 +112,24 @@ public class GerenciadorTurno {
     }
 
     public void fasesJ1 (){
-        jogador1.faseCompra();
-        jogador1.faseMana(turno);
-        jogador1.fasePosicionamento();
-        jogador1.faseCombate();
+        jogador1.fasesJogador(turno);
+        jogador2.fasesJogador(turno);
     }
 
-    public void fasesJ2(){
-        jogador2.faseCompra();
-        jogador2.faseMana(turno);
-        jogador2.fasePosicionamento();
-        jogador2.faseCombate();
+    public void fasesJ2 (){
+        jogador2.fasesJogador(turno);
+        jogador1.fasesJogador(turno);
     }
 
     public void turno(){
-        jogador1.setOponente(jogador2);
-        jogador2.setOponente(jogador1);
         if (IDJogadorAtivo == 1){
             fasesJ1();
-            fasesJ2();
             System.out.println("Fim do Turno");
-            alternarJogador();
+            //alternarJogador();
         } else {
             fasesJ2();
-            fasesJ1();
             System.out.println("Fim do Turno");
-            alternarJogador();
+            //alternarJogador();
         }
     }
 
@@ -153,6 +149,15 @@ public class GerenciadorTurno {
         while (verificadorTurno()){
             turno();
             turno++;
+        }
+        if (!jogador1.getVivo() || jogador1.getDeck().estaVazio()){
+            System.out.println("Parabéns " + jogador2.getNome() + ", você ganhou o jogo!");
+            jogador2.passouNivel(50);
+            jogador1.passouNivel(15);
+        } else {
+            System.out.println("Parabéns " + jogador1.getNome() + ", você ganhou o jogo!");
+            jogador1.passouNivel(50);
+            jogador2.passouNivel(15);
         }
     }
 

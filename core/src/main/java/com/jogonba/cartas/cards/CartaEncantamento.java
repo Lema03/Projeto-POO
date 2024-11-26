@@ -1,6 +1,7 @@
 package com.jogonba.cartas.cards;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.jogonba.cartas.players.Jogador;
 
 public class CartaEncantamento extends Carta {
     private int valor;
@@ -10,21 +11,15 @@ public class CartaEncantamento extends Carta {
         this.valor = valor;
     }
 
-    public void ativarEfeito(CartaCriatura cartaCriatura){
-        switch (getTipoEfeito()){
-            case "aumentarAtaque":
-                cartaCriatura.aumentarAtaque(valor);
+    @Override
+    public void ativarEfeito(Jogador jogador, Jogador oponente, int posicao){
+        switch (getNome()){
+            case "Provocação":
+                getEfeito().provocacao(oponente);
                 break;
-            case "diminuirAtaque":
-                cartaCriatura.diminuirAtaque(valor);
+            case "Clutch time":
+                getEfeito().clutchTime(jogador);
                 break;
-            case "aumentarDefesa":
-                cartaCriatura.aumentarDefesa(valor);
-                break;
-            case "diminuirDefesa":
-                cartaCriatura.diminuirDefesa(valor);
-                break;
-            //Outros tipos de encantamento
         }
 
     }

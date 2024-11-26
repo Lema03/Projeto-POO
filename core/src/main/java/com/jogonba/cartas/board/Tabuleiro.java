@@ -1,6 +1,8 @@
 package com.jogonba.cartas.board;
 import com.jogonba.cartas.cards.Carta;
 import com.badlogic.gdx.math.Vector2;
+import com.jogonba.cartas.cards.CartaCriatura;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,7 +23,7 @@ public class Tabuleiro {
 
     //Métodos relevantes:
     public Carta removerCarta(int posicao) {
-        Carta carta = slotsTabuleiro.get(posicao);
+        CartaCriatura carta = (CartaCriatura) slotsTabuleiro.get(posicao);
         slotsTabuleiro.set(posicao, null);
         return carta;
     }
@@ -30,8 +32,8 @@ public class Tabuleiro {
         return slotsTabuleiro.indexOf(carta);
     }
 
-    public Carta escolherCarta(int n) {
-        return slotsTabuleiro.get(n);
+    public CartaCriatura escolherCarta(int n) {
+        return (CartaCriatura) slotsTabuleiro.get(n);
     }
 
     public void preencherTabuleiro(){
@@ -80,6 +82,14 @@ public class Tabuleiro {
         return slotsTabuleiro;
     }
 
-
+    public int quantCartas(){
+        int n = 0;
+        for (int i = 0; i < 5; i++){
+            if (!lugarVazio(i)){
+                n++;
+            }
+        }
+        return n;
+    }
 
 }

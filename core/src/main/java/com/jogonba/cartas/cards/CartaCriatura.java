@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.jogonba.cartas.players.Jogador;
+import java.util.Scanner;
 
 public class CartaCriatura extends Carta {
     private final int LARGURA_CARTA = 130;
@@ -16,6 +17,7 @@ public class CartaCriatura extends Carta {
 
     private int ataque;
     private int defesa;
+    Scanner scanner = new Scanner(System.in);
 
     private BitmapFont font;
 
@@ -73,5 +75,49 @@ public class CartaCriatura extends Carta {
     }
     public String printarDefesa(){
         return String.valueOf(defesa);
+    }
+
+    @Override
+    public void ativarEfeito(Jogador jogador, Jogador oponente, int posicao){
+        switch(getNome()){
+            case "Michael Jordan":
+                getEfeito().theGoat(jogador, oponente, posicao);
+                break;
+            case "Scottie Pippen":
+                getEfeito().contratoBarato(jogador);
+                setEfeitoAtivo(true);
+                break;
+            case "Dennis Rodman":
+                getEfeito().oVerme(jogador, posicao);
+                setEfeitoAtivo(true);
+                break;
+            case "Steve Kerr":
+                getEfeito().clutchTimeKerr(jogador, posicao);
+                break;
+            case "Toni Kukoč":
+                getEfeito().loboSolitario(jogador, posicao);
+                break;
+            case "Lebron James":
+                getEfeito().theKing(jogador, posicao);
+                break;
+            case "Dwyane Wade":
+                for (int i = 0; i <= 1; i++) {
+                    System.out.println("Qual carta será atacada?");
+                    int posicao2 = Integer.parseInt(scanner.nextLine());
+                    getEfeito().flash(jogador, oponente, posicao, posicao2);
+                }
+                setEfeitoAtivo(true);
+                break;
+            case "Chris Bosh":
+                getEfeito().silencioso(jogador, posicao);
+                setEfeitoAtivo(true);
+                break;
+            case "Ray Allen":
+                getEfeito().clutchShooter(oponente);
+                break;
+            case "Shane Battier":
+                getEfeito().defensorImplacavel(jogador, oponente, posicao);
+                break;
+        }
     }
 }

@@ -1,4 +1,5 @@
 package com.jogonba.cartas.players;
+import com.jogonba.cartas.cards.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,7 +24,10 @@ public class Jogador{
     Scanner scanner = new Scanner(System.in);
     private Carta cartaRemovida;
     private Jogador oponente;
+    private Jogador jogador;
     private boolean continuar = true;
+    private int experiencia;
+    private int nivel;
 
 
 
@@ -37,6 +41,8 @@ public class Jogador{
         this.deck = new Deck();
         this.dl = new DeckLibrary();
         this.tabuleiro = new Tabuleiro();
+        this.experiencia = 0;
+        this.nivel = 0;
     }
 
     //Métodos relevantes:
@@ -48,20 +54,53 @@ public class Jogador{
         this.mana -= valor;
         System.out.println(this.mana);
     }
-    public void aumentarMana(int valor){
-        this.mana += valor;
-    }
 
     public void jogarCarta (int posicaoHand) throws ManaInsuficienteException{
-        if (tabuleiro.tabuleiroOcupado() != 0) {
-            this.cartaRemovida = hand.removerCarta(posicaoHand);
+        Carta cartaUsada = hand.removerCarta(posicaoHand);
+        if (!(cartaUsada instanceof CartaCriatura)){
+            if (cartaUsada instanceof CartaEncantamento){
+                int quantMana = cartaUsada.getCustoMana();
+                if (this.mana == 0) {
+                    System.out.println("Sem mana disponível.");
+                } else if (quantMana > this.mana) {
+                    throw new ManaInsuficienteException("Mana insuficiente!");
+                } else {
+                    CartaEncantamento cartaEncantamento = (CartaEncantamento) cartaUsada;
+                    diminuirMana(quantMana);
+                    cartaEncantamento.setEfeito(new Efeitos());
+                    cartaEncantamento.ativarEfeito(jogador, oponente, posicaoHand);
+                }
+            } else {
+                int quantMana = cartaUsada.getCustoMana();
+                if (this.mana == 0) {
+                    System.out.println("Sem mana disponível.");
+                } else if (quantMana > this.mana) {
+                    throw new ManaInsuficienteException("Mana insuficiente!");
+                } else {
+                    CartaFeitico cartaFeitico = (CartaFeitico) cartaUsada;
+                    diminuirMana(quantMana);
+                    cartaFeitico.setEfeito(new Efeitos());
+                    System.out.println("Em qual carta deseja aplicar o efeito?");
+                    int posicao = Integer.parseInt(scanner.nextLine());
+                    cartaFeitico.ativarEfeito(jogador, oponente, posicao);
+                }
+            }
+            cemiterio.adicionarCarta(cartaUsada);
+            hand.removerCarta(posicaoHand);
+        } else if (tabuleiro.tabuleiroOcupado() != 0) {
+            this.cartaRemovida = (CartaCriatura) cartaUsada;
             int quantMana = cartaRemovida.getCustoMana();
-                if (quantMana > this.mana) {
+            if (this.mana == 0) {
+                System.out.println("Sem mana disponível.");
+            } else if (quantMana > this.mana) {
                 throw new ManaInsuficienteException("Mana insuficiente!");
-            } else if (quantMana <= this.mana) {
+            } else {
+                System.out.println("Escolha em qual posição do tabuleiro deseja jogar");
                 int posicao = Integer.parseInt(scanner.nextLine());
                 diminuirMana(quantMana);
                 tabuleiro.colocarCarta(posicao, cartaRemovida);
+                cartaRemovida.setEfeito(new Efeitos());
+                cartaRemovida.ativarEfeito(jogador, oponente, posicao);
             }
         } else {
             System.out.println("O tabuleiro está completo.");
@@ -95,10 +134,6 @@ public class Jogador{
         hand.mostrarHand();
     }
 
-    public Carta escolherCarta (int n){
-        return tabuleiro.escolherCarta(n);
-    }
-
     public void ataqueDireto (CartaCriatura cartaAtaque, Jogador oponente){
         int dano = cartaAtaque.getAtaque();
         oponente.diminuirVida(dano);
@@ -112,7 +147,6 @@ public class Jogador{
     public void faseCompra(){
         System.out.println("Fase de Compra de " + nome);
         hand.comprarCarta(deck);
-        hand.mostrarHand();
     }
 
     public void faseMana (int turno){
@@ -126,10 +160,15 @@ public class Jogador{
     public void fasePosicionamento(){
         continuar = true;
         deck.contDeck();
+        System.out.println("Fase de Posicionamento de " + nome);
         while (continuar){
             if (mana == 0){
+                System.out.println("Sem mana disponível.");
                 continuar = false;
             } else {
+                System.out.println("A mana disponível é: " + mana);
+                mostrarHand();
+                System.out.println("Escolha qual carta quer jogar, " + nome);
                 int posicao = Integer.parseInt(scanner.nextLine());
                 try {
                     jogarCarta(posicao);
@@ -149,6 +188,7 @@ public class Jogador{
     }
 
     public void faseCombate (){
+        System.out.println("Fase de Combate de " + nome);
         boolean continuar = true;
         System.out.println("Deseja atacar o adversário, " + nome + "? [S/N]");
         String resposta = scanner.nextLine();
@@ -164,27 +204,21 @@ public class Jogador{
                 System.out.println("Essa carta já foi utilizada.");
             } else {
                 cartasUsadas.add(escolha1);
-                Carta carta1 = tabuleiro.escolherCarta(escolha1);
-                if (!(carta1 instanceof CartaCriatura)) {
-                    System.out.println("A carta selecionada não é um jogador.");
+                CartaCriatura carta1 = (CartaCriatura) tabuleiro.escolherCarta(escolha1);
+                cartaAtaque = carta1;
+                if (oponente.getTabuleiro().tabuleiroOcupado() != 4) {
+                    System.out.println("Agora, escolha qual carta do oponente você deseja atacar: ");
+                    CartaCriatura cartaDefesa = null;
+                    int escolha2 = Integer.parseInt(scanner.nextLine());
+                    Carta carta2 = oponente.getTabuleiro().escolherCarta(escolha2);
+                    cartaDefesa = (CartaCriatura) carta2;
+                    assert cartaDefesa != null;
+                    atacarCarta(cartaAtaque, cartaDefesa, oponente);
                 } else {
-                    cartaAtaque = (CartaCriatura) carta1;
-                    boolean verificador = oponente.getTabuleiro().getSlotsTabuleiro().stream().anyMatch (carta -> carta instanceof CartaCriatura);
-                    if (verificador) {
-                        System.out.println("Agora, escolha qual carta do oponente você deseja atacar: ");
-                        CartaCriatura cartaDefesa = null;
-                        int escolha2 = Integer.parseInt(scanner.nextLine());
-                        Carta carta2 = oponente.getTabuleiro().escolherCarta(escolha2);
-                        if (carta2 instanceof CartaCriatura) {
-                            cartaDefesa = (CartaCriatura) carta2;
-                        }
-                        //assert cartaDefesa != null;
-                        atacarCarta(cartaAtaque, cartaDefesa, oponente);
-                    } else {
-                        ataqueDireto(cartaAtaque, oponente);
-                    }
+                    ataqueDireto(cartaAtaque, oponente);
                 }
             }
+
             System.out.println("Deseja atacar novamente? [S/N]");
             String decisao = scanner.nextLine();
             if (decisao.equalsIgnoreCase("n")){
@@ -192,6 +226,13 @@ public class Jogador{
             }
         }
         oponente.getCemiterio().mostrarCemiterio();
+    }
+
+    public void fasesJogador(int turno){
+        faseCompra();
+        faseMana(turno);
+        fasePosicionamento();
+        faseCombate();
     }
 
     public void armazenarPosicoesHand(){
@@ -303,6 +344,9 @@ public class Jogador{
         this.oponente = oponente;
     }
 
+    public void setJogador(Jogador jogador){
+        this.jogador = jogador;
+    }
     public Jogador getOponente(){
         return oponente;
     }
@@ -319,6 +363,17 @@ public class Jogador{
     public boolean getVivo(){
         isVivo();
         return vivo;
+    }
+
+    public void passouNivel(int expOb){
+        experiencia = experiencia + expOb;
+        if (expOb == 50){;
+            nivel++;
+            System.out.println("Parabéns " + nome + "! Você subiu de nível! Agora é nível " + nivel);
+            System.out.println("Experiência atual: " + experiencia);
+        } else {
+            System.out.println("Experiência atual: " + experiencia);
+        }
     }
 
     public String getIdentificadorDeck(){
