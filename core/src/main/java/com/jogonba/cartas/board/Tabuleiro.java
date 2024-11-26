@@ -6,10 +6,17 @@ import java.util.Scanner;
 
 public class Tabuleiro {
     private ArrayList<Carta> slotsTabuleiro;
+    public Vector2[] posicoesTabuleiro;
+
     Scanner scanner = new Scanner(System.in);
 
     public Tabuleiro() {
         this.slotsTabuleiro = new ArrayList<>();
+        posicoesTabuleiro = new Vector2[5];
+
+        for (int i = 0; i < posicoesTabuleiro.length; i++) {
+            posicoesTabuleiro[i] = new Vector2();
+        }
     }
 
     //Métodos relevantes:
@@ -40,6 +47,7 @@ public class Tabuleiro {
             return false;
         }
     }
+
 
     public int tabuleiroOcupado(){
         int lugaresVazios = 0;

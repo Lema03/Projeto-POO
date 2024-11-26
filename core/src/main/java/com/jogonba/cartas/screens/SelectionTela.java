@@ -20,7 +20,6 @@ public class SelectionTela implements Screen {
     private static final int MH_BUTTON_X = 940 - CB_BUTTON_LARGURA/2;
     private static final int CBMH_Y = (JogoCarta.ALTURA - CB_BUTTON_ALTURA)/2;
 
-    private GerenciadorTurno gt;
     private JogoCarta jogo;
 
     private final Texture nbaWallpaper;
@@ -34,7 +33,6 @@ public class SelectionTela implements Screen {
 
     public SelectionTela(JogoCarta jogo){
         this.jogo = jogo;
-        gt = new GerenciadorTurno();
         nbaWallpaper = new Texture("nba_wallpaper.jpg");
         cbInactive = new Texture("cb_inactive.png");
         cbActive = new Texture("cb_active.png");
@@ -59,7 +57,7 @@ public class SelectionTela implements Screen {
             texturaAtualCB = cbActive;
             if (Gdx.input.isTouched()){
                 this.dispose();
-                gt.escolhaDeckCB();
+                jogo.gt.escolhaDeckCB();
                 jogo.setScreen(new JogoTela(jogo));
             }
         } else {
@@ -69,7 +67,7 @@ public class SelectionTela implements Screen {
             texturaAtualMH = mhActive;
             if (Gdx.input.isTouched()){
                 this.dispose();
-                gt.escolhaDeckMH();
+                jogo.gt.escolhaDeckMH();
                 jogo.setScreen(new JogoTela(jogo));
             }
         } else {

@@ -2,6 +2,8 @@ package com.jogonba.cartas.players;
 
 import java.util.LinkedList;
 import java.util.Collections;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jogonba.cartas.cards.Carta;
 
 public class Deck {
@@ -18,6 +20,8 @@ public class Deck {
     public void shuffle(){
         Collections.shuffle(cartasDeck);
     }
+
+
 
     public Carta removerCarta(){
         return cartasDeck.poll();

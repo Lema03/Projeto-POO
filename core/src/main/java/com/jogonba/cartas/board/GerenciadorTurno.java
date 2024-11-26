@@ -21,6 +21,7 @@ public class GerenciadorTurno {
         this.random = new Random();
         this.deckCB = new Deck();
         this.deckMH = new Deck();
+        this.turno = 1;
     }
 
     //Métodos relevantes:
@@ -52,15 +53,19 @@ public class GerenciadorTurno {
     public void escolhaDeckCB() {
         deckCB.setCartasDeck(dl.getDeck1().getCartasDeck());
         jogador1.setDeck(deckCB);
+        jogador1.setIdentificadorDeck("CB");
         deckMH.setCartasDeck(dl.getDeck2().getCartasDeck());
         jogador2.setDeck(deckMH);
+        jogador2.setIdentificadorDeck("MH");
     }
 
     public void escolhaDeckMH() {
         deckMH.setCartasDeck(dl.getDeck2().getCartasDeck());
         jogador1.setDeck(deckMH);
+        jogador1.setIdentificadorDeck("MH");
         deckCB.setCartasDeck(dl.getDeck1().getCartasDeck());
         jogador2.setDeck(deckCB);
+        jogador2.setIdentificadorDeck("CB");
     }
 
     public void alternarJogador(){
@@ -72,19 +77,6 @@ public class GerenciadorTurno {
     }
 
     public void rodadaInicial(){
-        dl.embaralharCartas1();
-        dl.embaralharCartas2();
-        jogador1.status();
-        jogador2.status();
-        jogador1.getTabuleiro().preencherTabuleiro();
-        jogador2.getTabuleiro().preencherTabuleiro();
-        System.out.println("Agora, vamos receber as cartas!");
-        System.out.println("Primeiro, as cartas de " + jogador1.getNome());
-        jogador1.puxarHandInicial();
-        jogador1.mostrarHand();
-        System.out.println("Agora, as cartas de " + jogador2.getNome());
-        jogador2.puxarHandInicial();
-        jogador2.mostrarHand();
         if (IDJogadorAtivo == 1){
             jogador1.faseCompra();
             jogador1.faseMana(turno);
@@ -106,6 +98,13 @@ public class GerenciadorTurno {
             //alternarJogador();
             turno++;
         }
+    }
+
+    public void rodadaInicialTeste(){
+        jogador1.faseMana(turno);
+        jogador1.fasePosicionamento();
+        jogador2.faseMana(turno);
+        jogador2.fasePosicionamento();
     }
 
     public void fasesJ1 (){
@@ -122,7 +121,6 @@ public class GerenciadorTurno {
         jogador2.faseCombate();
     }
 
-
     public void turno(){
         jogador1.setOponente(jogador2);
         jogador2.setOponente(jogador1);
@@ -130,12 +128,12 @@ public class GerenciadorTurno {
             fasesJ1();
             fasesJ2();
             System.out.println("Fim do Turno");
-            //alternarJogador();
+            alternarJogador();
         } else {
             fasesJ2();
             fasesJ1();
             System.out.println("Fim do Turno");
-            //alternarJogador();
+            alternarJogador();
         }
     }
 
@@ -150,12 +148,18 @@ public class GerenciadorTurno {
     public void gameplay(){
         inicio();
         sorteio();
-        escolhaDeck();
         rodadaInicial();
         System.out.println("Fim da rodada inicial. ");
         while (verificadorTurno()){
             turno();
             turno++;
         }
+    }
+
+    public Jogador getJogador1(){
+        return jogador1;
+    }
+    public Jogador getJogador2(){
+        return jogador2;
     }
 }

@@ -2,10 +2,14 @@ package com.jogonba.cartas.cards;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public abstract class Carta {
+    private final int LARGURA_CARTA = 130;
+    private final int ALTURA_CARTA = 180;
+
     Texture textura;
-    float x, y;
+    Vector2 posicaoCarta;
 
     private String nome;
     private int custoMana;
@@ -16,10 +20,12 @@ public abstract class Carta {
         this.custoMana = custoMana;
         this.textura = textura;
         this.tipoEfeito = tipoEfeito;
+        posicaoCarta = new Vector2(-1,-1);
     }
 
-    public void render(SpriteBatch batch){
-        batch.draw(textura, x, y);
+    public void desenharCarta(SpriteBatch batch, Vector2 posicao){
+        batch.draw(textura, posicao.x, posicao.y, LARGURA_CARTA, ALTURA_CARTA);
+        posicaoCarta = new Vector2(posicao);
     }
 
     //Getters e setters:
@@ -48,4 +54,7 @@ public abstract class Carta {
         return tipoEfeito;
     }
 
+    public Vector2 getPosicaoCarta(){
+        return posicaoCarta;
+    }
 }

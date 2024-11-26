@@ -1,6 +1,8 @@
 package com.jogonba.cartas.players;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.jogonba.cartas.board.ManaInsuficienteException;
 import com.jogonba.cartas.board.Tabuleiro;
 import com.jogonba.cartas.cards.Carta;
@@ -12,6 +14,7 @@ public class Jogador{
     private int vida;
     private int mana;
     private boolean vivo;
+    String identificadorDeck;
     Hand hand;
     Deck deck;
     Cemiterio cemiterio;
@@ -21,6 +24,8 @@ public class Jogador{
     private Carta cartaRemovida;
     private Jogador oponente;
     private boolean continuar = true;
+
+
 
     public Jogador(int identificador){
         this.identificador = identificador;
@@ -51,12 +56,9 @@ public class Jogador{
         if (tabuleiro.tabuleiroOcupado() != 0) {
             this.cartaRemovida = hand.removerCarta(posicaoHand);
             int quantMana = cartaRemovida.getCustoMana();
-            if (this.mana == 0) {
-                System.out.println("Sem mana disponível.");
-            } else if (quantMana > this.mana) {
+                if (quantMana > this.mana) {
                 throw new ManaInsuficienteException("Mana insuficiente!");
-            } else {
-                System.out.println("Escolha em qual posição do tabuleiro deseja jogar");
+            } else if (quantMana <= this.mana) {
                 int posicao = Integer.parseInt(scanner.nextLine());
                 diminuirMana(quantMana);
                 tabuleiro.colocarCarta(posicao, cartaRemovida);
@@ -83,6 +85,7 @@ public class Jogador{
     }
 
     public void puxarHandInicial(){
+        deck.shuffle();
         for (int i = 0; i < 5; i++){
             hand.comprarCarta(deck);
         }
@@ -113,7 +116,6 @@ public class Jogador{
     }
 
     public void faseMana (int turno){
-        System.out.println("Fase de Mana de " + nome);
         if (this.mana <= 10){
             this.mana = turno;
         } else {
@@ -124,14 +126,10 @@ public class Jogador{
     public void fasePosicionamento(){
         continuar = true;
         deck.contDeck();
-        System.out.println("Fase de Posicionamento de " + nome);
         while (continuar){
             if (mana == 0){
-                System.out.println("Sem mana disponível.");
                 continuar = false;
             } else {
-                System.out.println("A mana disponível é: " + mana);
-                System.out.println("Escolha qual carta quer jogar, " + nome);
                 int posicao = Integer.parseInt(scanner.nextLine());
                 try {
                     jogarCarta(posicao);
@@ -151,7 +149,6 @@ public class Jogador{
     }
 
     public void faseCombate (){
-        System.out.println("Fase de Combate de " + nome);
         boolean continuar = true;
         System.out.println("Deseja atacar o adversário, " + nome + "? [S/N]");
         String resposta = scanner.nextLine();
@@ -196,6 +193,55 @@ public class Jogador{
         }
         oponente.getCemiterio().mostrarCemiterio();
     }
+
+    public void armazenarPosicoesHand(){
+        if (identificadorDeck.equals("CB")){
+            for (int i = 0; i < 9; i++){
+                hand.posicoesHand[i].set(220 + 140 * i, 574);
+            }
+        } else {
+            for (int i = 0; i < 9; i++){
+                hand.posicoesHand[i].set(220 + 140 * i, 0);
+            }
+        }
+    }
+
+    public void armazenarPosicoesTabuleiro(){
+        if (identificadorDeck.equals("CB")){
+            for (int i = 0; i < 5; i++){
+                tabuleiro.posicoesTabuleiro[i].set(246 + 184 * i, 200);
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                tabuleiro.posicoesTabuleiro[i].set(246 + 184 * i, 400);
+            }
+        }
+    }
+
+    public void desenharCartasHandInicial(SpriteBatch batch){
+        armazenarPosicoesHand();
+        for (int i = 0; i < 5; i++){
+            Carta carta = hand.cartasHand.get(i);
+            carta.desenharCarta(batch, hand.posicoesHand[i]);
+        }
+    }
+
+    public void desenharCartaComprada(SpriteBatch batch){
+        Carta carta = hand.comprarCarta(deck);
+        for (int i = 0; i < 7; i++){
+            boolean continuar = tabuleiro.lugarVazio(i);
+            if (continuar = false){
+                carta.desenharCarta(batch, hand.posicoesHand[i]);
+            }
+        }
+    }
+
+    public void desenharStatus(SpriteBatch batch){
+        if (identificadorDeck.equals("CB")){
+
+        }
+    }
+
 
     //Condições de vitória:
     public void isVivo(){
@@ -273,5 +319,19 @@ public class Jogador{
     public boolean getVivo(){
         isVivo();
         return vivo;
+    }
+
+    public String getIdentificadorDeck(){
+        return identificadorDeck;
+    }
+    public void setIdentificadorDeck(String identificadorDeck){
+        this.identificadorDeck = identificadorDeck;
+    }
+
+    public String printarMana(){
+        return String.valueOf(mana);
+    }
+    public String printarVida(){
+        return String.valueOf(vida);
     }
 }
