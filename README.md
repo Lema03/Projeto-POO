@@ -1,0 +1,1 @@
+Projeto em progresso com o objetivo de desenvolver um jogo de cartas utilizando técnicas de Orientação a Objetos. Foi desenvolvido na linguagem Java, com auxílio dos frameworks LibGDX e Gradle. Cards de jogadores feitos autoralmente.
